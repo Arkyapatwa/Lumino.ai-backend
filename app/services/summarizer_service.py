@@ -2,21 +2,29 @@ from utils.llm import LLM
 from models.summarizer_model import SummarizerModel
 from fastapi import Request
 
-def summarize_text(user_input: SummarizerModel, request: Request):
-    llm = LLM()
-    model = llm.get_openai_model()
+async def summarize_text(user_input: SummarizerModel, request: Request):
+    try:
+        llm = LLM()
+        model = llm.get_openai_model()
 
-    prompt = f"""
-        Summarize this text below.
+        prompt = f"""
+            Summarize this text below.
 
-        Text:{user_input.text}
-    """
+            Text:{user_input.text}
+        """
 
-    response = model.invoke(prompt)
-    result = {
-        "result": response.content
-    }
-    return result
+        response = await model.ainvoke(prompt)
+        result = {
+            "status": "success",
+            "message": response.content
+        }
+        return result
+    except Exception as e:
+        result = {
+            "status": "error",
+            "message": str(e)
+       }
+        return result
 
 def summarize_file(user_input: SummarizerModel, request: Request):
     pass
