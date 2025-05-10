@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, File, UploadFile
 from fastapi.responses import JSONResponse
 
 from slowapi import Limiter
@@ -20,11 +20,11 @@ async def summarize_text(user_input: SummarizerModel, request: Request):
     except Exception as e:
         return JSONResponse(content={"status": "error", "message": str(e)}, status_code=500)
 
-@router.get("/file")
+@router.post("/file")
 @limiter.limit("2/minute")
-async def summarize_file(user_input: SummarizerModel, request: Request):
+async def summarize_file(request: Request, file: UploadFile = File(...)):
     try:
-        result = summarizer_service.summarize_file(user_input, request)
+        result = await summarizer_service.summarize_file(file=file, request=request)
         return JSONResponse(content=result, status_code=200)
     except Exception as e:
         return JSONResponse(content={"status": "error", "message": str(e)}, status_code=500)

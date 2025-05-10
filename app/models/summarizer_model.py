@@ -1,6 +1,7 @@
 from pydantic import BaseModel
+from typing import Optional
 
 class SummarizerModel(BaseModel):
-    text: str = None
-    file: str = None
+    text: Optional[str] = None
+    file: Optional[str] = None
     
