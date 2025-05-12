@@ -1,22 +1,45 @@
-from fastapi import FastAPI
-from slowapi import Limiter, _rate_limit_exceeded_handler
-from slowapi.errors import RateLimitExceeded
-from slowapi.util import get_remote_address
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+from routes import summarizer, auth
+from middleware.auth_middleware import firebase_auth_middleware
+from config.settings import get_settings
 
-from routes import summarizer
+# Get application settings
+settings = get_settings()
 
-limiter = Limiter(key_func=get_remote_address)
-app = FastAPI()
+app = FastAPI(
+    title=settings.app_name,
+    version=settings.app_version,
+    debug=settings.api.debug
+)
 
-app.state.limiter = limiter
-app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.cors.allow_origins,
+    allow_credentials=settings.cors.allow_credentials,
+    allow_methods=settings.cors.allow_methods,
+    allow_headers=settings.cors.allow_headers,
+)
+
+# Add Firebase auth middleware
+@app.middleware("http")
+async def auth_middleware(request: Request, call_next):
+    return await firebase_auth_middleware(request, call_next) 
 
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
 
+# Include routers
 app.include_router(summarizer.router)
+app.include_router(auth.router)
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run(
+        "main:app", 
+        host=settings.api.host, 
+        port=settings.api.port, 
+        reload=settings.api.reload
+    )

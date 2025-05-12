@@ -54,3 +54,6 @@ Thumbs.db
 .pytest_cache/
 coverage/
 htmlcov/
+
+# firebase - firestore
+serviceAccountKey.json
