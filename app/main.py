@@ -3,14 +3,24 @@ from fastapi.middleware.cors import CORSMiddleware
 from routes import summarizer, auth
 from middleware.auth_middleware import firebase_auth_middleware
 from config.settings import get_settings
+from redis import Redis
+from contextlib import asynccontextmanager
+
 
 # Get application settings
 settings = get_settings()
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    app.state.redis = Redis(host="localhost", port=6379)
+    yield
+    app.state.redis.close()
+
 app = FastAPI(
     title=settings.app_name,
     version=settings.app_version,
-    debug=settings.api.debug
+    debug=settings.api.debug,
+    lifespan=lifespan
 )
 
 # Add CORS middleware
