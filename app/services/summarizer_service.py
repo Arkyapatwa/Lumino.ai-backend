@@ -135,4 +135,5 @@ async def summarize_file(request: Request, file: UploadFile = File(...)):
         result = {
             "status": "error",
             "message": str(e)
-        }        
+        }
+        return result  # This return statement was missing

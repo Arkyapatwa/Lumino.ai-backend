@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from routes import summarizer, auth
+from routes import summarizer, auth, chatbot
 from middleware.auth_middleware import firebase_auth_middleware
 from config.settings import get_settings
 from redis import Redis
@@ -44,6 +44,7 @@ def read_root():
 # Include routers
 app.include_router(summarizer.router)
 app.include_router(auth.router)
+app.include_router(chatbot.router)
 
 if __name__ == "__main__":
     import uvicorn

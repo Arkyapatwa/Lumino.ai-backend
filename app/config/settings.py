@@ -9,10 +9,14 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class FirebaseSettings(BaseSettings):
-    credentials_path: str = Field(default=os.getenv("FIREBASE_CREDENTIALS_PATH", "./../serviceAccountKey.json"))
+    credentials_path: str = Field(default=os.getenv("FIREBASE_CREDENTIALS_PATH", os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "serviceAccountKey.json")))
     storage_bucket: Optional[str] = Field(default=os.getenv("FIREBASE_STORAGE_BUCKET"))
     api_key: str = Field(default=os.getenv("FIREBASE_API_KEY", ""))
     auth_domain: str = Field(default=os.getenv("FIREBASE_AUTH_DOMAIN", ""))
+    projectid: str = Field(default=os.getenv("FIREBASE_PROJECTID", ""))
+    messagingsenderid: str = Field(default=os.getenv("FIREBASE_MESSAGINGSENDERID", ""))
+    appid: str = Field(default=os.getenv("FIREBASE_APPID", ""))
+    measurementid: str = Field(default=os.getenv("FIREBASE_MEASUREMENTID", ""))
     
     class Config:
         env_prefix = "FIREBASE_"
