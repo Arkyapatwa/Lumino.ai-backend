@@ -3,7 +3,7 @@ from typing import List, Dict, Optional, Any
 import uuid
 from datetime import datetime
 import logging
-from utils.llm import LLM
+from app.utils.llm import LLM
 
 # Updated imports for modern LangChain
 from langchain_google_firestore import FirestoreChatMessageHistory

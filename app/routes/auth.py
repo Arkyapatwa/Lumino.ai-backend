@@ -4,12 +4,12 @@ from pydantic import BaseModel
 from typing import Optional, Dict
 
 # Import both authentication services
-from services.auth_service import (
+from app.services.auth_service import (
     verify_token, 
     get_user_profile,
     update_user_profile
 )
-from services.firebase_auth_service import FirebaseAuthService
+from app.services.firebase_auth_service import FirebaseAuthService
 
 router = APIRouter(prefix="/auth")
 firebase_auth = FirebaseAuthService()

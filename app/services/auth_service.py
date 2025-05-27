@@ -4,7 +4,7 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import os
 from typing import Dict, Optional
-from config.settings import get_settings
+from app.config.settings import get_settings
 
 # Get application settings
 settings = get_settings()

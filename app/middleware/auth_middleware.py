@@ -2,7 +2,7 @@ from fastapi import Request, HTTPException, status
 from fastapi.responses import JSONResponse
 import firebase_admin
 from firebase_admin import auth
-from services.firebase_auth_service import FirebaseAuthService
+from app.services.firebase_auth_service import FirebaseAuthService
 
 # Initialize the Firebase Auth Service
 firebase_auth = FirebaseAuthService()

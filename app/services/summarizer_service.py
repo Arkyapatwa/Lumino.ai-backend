@@ -1,5 +1,5 @@
-from utils.llm import LLM
-from models.summarizer_model import SummarizerModel
+from app.utils.llm import LLM
+from app.models.summarizer_model import SummarizerModel
 from fastapi import Request, File, UploadFile
 
 from langchain.chains.summarize import load_summarize_chain

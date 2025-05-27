@@ -5,8 +5,8 @@ from slowapi import Limiter
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 
-from models.summarizer_model import SummarizerModel
-from services import summarizer_service
+from app.models.summarizer_model import SummarizerModel
+from app.services import summarizer_service
 
 limiter = Limiter(key_func=get_remote_address)
 router = APIRouter(prefix="/summarizer")

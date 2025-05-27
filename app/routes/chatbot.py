@@ -2,12 +2,12 @@ from fastapi import APIRouter, Request, Depends, HTTPException, status
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from typing import List, Dict, Optional, Any
-from services.auth_service import verify_token
-from models.chatbot_model import ChatSession, ChatRequest, ChatMessage
+from app.services.auth_service import verify_token
+from app.models.chatbot_model import ChatSession, ChatRequest, ChatMessage
 import logging
 
 # Import the service that will be implemented later
-from services.chatbot_service import (
+from app.services.chatbot_service import (
     get_user_sessions,
     process_chat_message,
     delete_user_session  # Add this import

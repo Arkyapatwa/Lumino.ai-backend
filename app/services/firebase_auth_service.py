@@ -1,7 +1,7 @@
 import requests
 import json
 from fastapi import HTTPException, status
-from config.settings import get_settings
+from app.config.settings import get_settings
 import logging
 
 # Get application settings

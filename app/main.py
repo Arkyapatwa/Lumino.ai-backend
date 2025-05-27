@@ -1,8 +1,8 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from routes import summarizer, auth, chatbot
-from middleware.auth_middleware import firebase_auth_middleware
-from config.settings import get_settings
+from app.routes import summarizer, auth, chatbot
+from app.middleware.auth_middleware import firebase_auth_middleware
+from app.config.settings import get_settings
 from redis import Redis
 from contextlib import asynccontextmanager
 

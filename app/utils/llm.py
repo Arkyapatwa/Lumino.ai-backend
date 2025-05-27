@@ -1,5 +1,5 @@
 from langchain_openai import ChatOpenAI
-from config.settings import get_settings
+from app.config.settings import get_settings
 
 # Get application settings
 settings = get_settings()
